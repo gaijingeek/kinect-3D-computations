@@ -276,6 +276,7 @@ void VisualizeOrientation(k4abt_frame_t bodyFrame, Window3dWrapper& window3d, in
 
     // Visualize the skeleton data FOR EACH PERSON
     window3d.CleanJointsAndBones();
+    uint64_t timestampSarah = k4a_image_get_device_timestamp_usec(depthImage);
     uint32_t numBodies = k4abt_frame_get_num_bodies(bodyFrame);
     //https://www.nextptr.com/question/qa1444367653/array-of-reference_wrapper-an-alternate-array-of-references
     //std::vector<std::reference_wrapper<const k4a_float3_t&>> NavelJoints;
@@ -319,17 +320,160 @@ void VisualizeOrientation(k4abt_frame_t bodyFrame, Window3dWrapper& window3d, in
                     
         }
 
-        myfile.open("NavelJointPositions.txt", std::fstream::out | std::fstream::app);
+        myfile.open("GlobalJointPositions.txt", std::fstream::out | std::fstream::app);
         if (myfile.is_open())
         { /* ok, proceed with output */
             //printf("I opened a file!!!\n");
+            myfile << timestampSarah;
+            myfile << ",";
             myfile << body.id;
-            myfile << "   ";
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HEAD].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HEAD].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HEAD].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_NOSE].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_NOSE].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_NOSE].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_EYE_LEFT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_EYE_LEFT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_EYE_LEFT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_EAR_LEFT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_EAR_LEFT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_EAR_LEFT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_EYE_RIGHT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_EYE_RIGHT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_EYE_RIGHT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_EAR_RIGHT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_EAR_RIGHT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_EAR_RIGHT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_NECK].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_NECK].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_NECK].position.xyz.z;
+            myfile << ",";
             myfile << body.skeleton.joints[K4ABT_JOINT_SPINE_NAVEL].position.xyz.x;
-            myfile << "   ";
+            myfile << ",";
             myfile << body.skeleton.joints[K4ABT_JOINT_SPINE_NAVEL].position.xyz.y;
-            myfile << "   ";
+            myfile << ",";
             myfile << body.skeleton.joints[K4ABT_JOINT_SPINE_NAVEL].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_SPINE_CHEST].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_SPINE_CHEST].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_SPINE_CHEST].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_CLAVICLE_LEFT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_CLAVICLE_LEFT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_CLAVICLE_LEFT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_SHOULDER_LEFT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_SHOULDER_LEFT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_SHOULDER_LEFT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_ELBOW_LEFT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_ELBOW_LEFT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_ELBOW_LEFT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_WRIST_LEFT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_WRIST_LEFT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_WRIST_LEFT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HAND_LEFT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HAND_LEFT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HAND_LEFT].position.xyz.z;
+            myfile << ",";
+
+            myfile << body.skeleton.joints[K4ABT_JOINT_HANDTIP_LEFT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HANDTIP_LEFT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HANDTIP_LEFT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_THUMB_LEFT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_THUMB_LEFT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_THUMB_LEFT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_CLAVICLE_RIGHT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_CLAVICLE_RIGHT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_CLAVICLE_RIGHT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_SHOULDER_RIGHT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_SHOULDER_RIGHT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_SHOULDER_RIGHT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_ELBOW_RIGHT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_ELBOW_RIGHT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_ELBOW_RIGHT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_WRIST_RIGHT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_WRIST_RIGHT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_WRIST_RIGHT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HAND_RIGHT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HAND_RIGHT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HAND_RIGHT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HANDTIP_RIGHT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HANDTIP_RIGHT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_HANDTIP_RIGHT].position.xyz.z;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_THUMB_RIGHT].position.xyz.x;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_THUMB_RIGHT].position.xyz.y;
+            myfile << ",";
+            myfile << body.skeleton.joints[K4ABT_JOINT_THUMB_RIGHT].position.xyz.z;
+            myfile << ",";
+            //myfile << body.skeleton.joints[K4ABT_JOINT_SPINE_NAVEL].orientation.wxyz.w;
+            //myfile << ",";
+            //myfile << body.skeleton.joints[K4ABT_JOINT_SPINE_NAVEL].orientation.wxyz.x;
+            //myfile << ",";
+            //myfile << body.skeleton.joints[K4ABT_JOINT_SPINE_NAVEL].orientation.wxyz.y;
+            //myfile << ",";
+            //myfile << body.skeleton.joints[K4ABT_JOINT_SPINE_NAVEL].orientation.wxyz.z;
             myfile << "\n";
             myfile.close();
         }
@@ -339,6 +483,7 @@ void VisualizeOrientation(k4abt_frame_t bodyFrame, Window3dWrapper& window3d, in
                
     }
 
+    // but this would only work for 2 people
     if (numBodies > 1)
     {
         float NavelsDistance_X;
@@ -351,19 +496,32 @@ void VisualizeOrientation(k4abt_frame_t bodyFrame, Window3dWrapper& window3d, in
         NavelsDistance = sqrt(NavelsDistance_X + NavelsDistance_Y + NavelsDistance_Z);
 
         distfile.open("NavelJointDistance.txt", std::fstream::out | std::fstream::app);
-            if (distfile.is_open())
-            { /* ok, proceed with output */
-                distfile << NavelsDistance;
-                distfile << "\n";
-                distfile.close();
+        if (distfile.is_open())
+        { /* ok, proceed with output */
+            distfile << timestampSarah;
+            distfile << ",";
+            distfile << NavelsDistance;
+            distfile << "\n";
+            distfile.close();
         }
         //else std::cout << "Unable to open file";
         else printf("Unable to open file\n");
 
-
-
     }
+    else {
 
+        distfile.open("NavelJointDistance.txt", std::fstream::out | std::fstream::app);
+        if (distfile.is_open())
+        { /* ok, proceed with output */
+            distfile << timestampSarah;
+            distfile << ",";
+            distfile << "0";
+            distfile << "\n";
+            distfile.close();
+        }
+        //else std::cout << "Unable to open file";
+        else printf("Unable to open file\n");
+    }
 
     // save the Navel Joints position array in the file
     //myfile.open("NavelJointPositions.txt", std::ios::out | std::ios::ate);
@@ -580,6 +738,18 @@ int main(int argc, char** argv)
         // Print app usage if user entered incorrect arguments.
         PrintUsage();
         return -1;
+    }
+
+    // initialize the file header
+    myfile.open("GlobalJointPositions.txt", std::fstream::out | std::fstream::app);
+    if (myfile.is_open())
+    { /* ok, proceed with output */
+        //printf("I opened a file!!!\n");
+        myfile << "Timestamp,BodyID,HEAD,NOSE,EYE_LEFT,EAR_LEFT,EYE_RIGHT,EAR_RIGHT,NECK,NAVEL,CHEST,";
+        myfile << "CLAVICLE_LEFT,SHOULDER_LEFT,ELBOW_LEFT,WRIST_LEFT,HAND_LEFT,HANDTIP_LEFT,THUMB_LEFT,";
+        myfile << "CLAVICLE_RIGHT,SHOULDER_RIGHT,ELBOW_RIGHT,WRIST_RIGHT,HAND_RIGHT,HANDTIP_RIGHT,THUMB_RIGHT,";
+        myfile << "\n";
+        myfile.close();
     }
 
     // Either play the offline file or play from the device
