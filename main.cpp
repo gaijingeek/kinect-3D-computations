@@ -304,6 +304,9 @@ void VisualizeOrientation(k4abt_frame_t bodyFrame, Window3dWrapper& window3d, in
         lowConfidenceColor.a = 0.1f;
         s_visualizeJointFrame = true;
 
+        std::string filename;
+        //filename = inputSettings.FileName + "GlobalJointPositions.txt";
+
         // Visualize joints ONLY NAVEL/CHEST
         if (body.skeleton.joints[K4ABT_JOINT_SPINE_NAVEL].confidence_level >= K4ABT_JOINT_CONFIDENCE_LOW)
         {
@@ -320,7 +323,7 @@ void VisualizeOrientation(k4abt_frame_t bodyFrame, Window3dWrapper& window3d, in
                     
         }
 
-        myfile.open("GlobalJointPositions.txt", std::fstream::out | std::fstream::app);
+        //myfile.open("GlobalJointPositions.txt", std::fstream::out | std::fstream::app);
         if (myfile.is_open())
         { /* ok, proceed with output */
             //printf("I opened a file!!!\n");
@@ -412,7 +415,6 @@ void VisualizeOrientation(k4abt_frame_t bodyFrame, Window3dWrapper& window3d, in
             myfile << ",";
             myfile << body.skeleton.joints[K4ABT_JOINT_HAND_LEFT].position.xyz.z;
             myfile << ",";
-
             myfile << body.skeleton.joints[K4ABT_JOINT_HANDTIP_LEFT].position.xyz.x;
             myfile << ",";
             myfile << body.skeleton.joints[K4ABT_JOINT_HANDTIP_LEFT].position.xyz.y;
@@ -475,7 +477,7 @@ void VisualizeOrientation(k4abt_frame_t bodyFrame, Window3dWrapper& window3d, in
             //myfile << ",";
             //myfile << body.skeleton.joints[K4ABT_JOINT_SPINE_NAVEL].orientation.wxyz.z;
             myfile << "\n";
-            myfile.close();
+            //myfile.close();
         }
         //else std::cout << "Unable to open file";
         //else printf("Unable to open file\n");
@@ -741,15 +743,33 @@ int main(int argc, char** argv)
     }
 
     // initialize the file header
-    myfile.open("GlobalJointPositions.txt", std::fstream::out | std::fstream::app);
+    std::string filenameOrigin = inputSettings.FileName;
+
+    printf("Original file: ");
+    printf(filenameOrigin.c_str());
+    printf("\n");
+    
+    int erase_path = filenameOrigin.find(".mkv");
+    filenameOrigin = filenameOrigin.erase(erase_path, 4);
+
+    char filenameS2[150];
+    strcpy_s(filenameS2, filenameOrigin.c_str());
+    strcat_s(filenameS2, "_GlobalJointPositions.csv");
+
+    printf("Data file: ");
+    printf(filenameS2);
+    printf("\n");
+    
+    myfile.open(filenameS2, std::fstream::out | std::fstream::app);
     if (myfile.is_open())
     { /* ok, proceed with output */
         //printf("I opened a file!!!\n");
-        myfile << "Timestamp,BodyID,HEAD,NOSE,EYE_LEFT,EAR_LEFT,EYE_RIGHT,EAR_RIGHT,NECK,NAVEL,CHEST,";
-        myfile << "CLAVICLE_LEFT,SHOULDER_LEFT,ELBOW_LEFT,WRIST_LEFT,HAND_LEFT,HANDTIP_LEFT,THUMB_LEFT,";
-        myfile << "CLAVICLE_RIGHT,SHOULDER_RIGHT,ELBOW_RIGHT,WRIST_RIGHT,HAND_RIGHT,HANDTIP_RIGHT,THUMB_RIGHT,";
+        myfile << "Timestamp,BodyID,HEAD_X,HEAD_Y,HEAD_Z,NOSE_X,NOSE_Y,NOSE_Z,EYE_LEFT_X,EYE_LEFT_Y,EYE_LEFT_Z,EAR_LEFT_X,EAR_LEFT_Y,EAR_LEFT_Z,EYE_RIGHT_X,EYE_RIGHT_Y,EYE_RIGHT_Z,EAR_RIGHT_X,EAR_RIGHT_Y,EAR_RIGHT_Z,";
+        myfile << "NECK_X,NECK_Y,NECK_Z,NAVEL_X,NAVEL_Y,NAVEL_Z,CHEST_X,CHEST_Y,CHEST_Z,";
+        myfile << "CLAVICLE_LEFT_X,CLAVICLE_LEFT_Y,CLAVICLE_LEFT_Z,SHOULDER_LEFT_X,SHOULDER_LEFT_Y,SHOULDER_LEFT_Z,ELBOW_LEFT_X,ELBOW_LEFT_Y,ELBOW_LEFT_Z,WRIST_LEFT_X,WRIST_LEFT_Y,WRIST_LEFT_Z,HAND_LEFT_X,HAND_LEFT_Y,HAND_LEFT_Z,HANDTIP_LEFT_X,HANDTIP_LEFT_Y,HANDTIP_LEFT_Z,THUMB_LEFT_X,THUMB_LEFT_Y,THUMB_LEFT_Z,";
+        myfile << "CLAVICLE_RIGHT_X,CLAVICLE_RIGHT_Y,CLAVICLE_RIGHT_Z,SHOULDER_RIGHT_X,SHOULDER_RIGHT_Y,SHOULDER_RIGHT_Z,ELBOW_RIGHT_X,ELBOW_RIGHT_Y,ELBOW_RIGHT_Z,WRIST_RIGHT_X,WRIST_RIGHT_Y,WRIST_RIGHT_Z,HAND_RIGHT_X,HAND_RIGHT_Y,HAND_RIGHT_Z,HANDTIP_RIGHT_X,HANDTIP_RIGHT_Y,HANDTIP_RIGHT_Z,THUMB_RIGHT_X,THUMB_RIGHT_Y,THUMB_RIGHT_Z";
         myfile << "\n";
-        myfile.close();
+        //myfile.close();
     }
 
     // Either play the offline file or play from the device
@@ -761,6 +781,8 @@ int main(int argc, char** argv)
     {
         PlayFromDevice(inputSettings);
     }
+
+    myfile.close();
 
     return 0;
 }
